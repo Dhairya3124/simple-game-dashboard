@@ -105,7 +105,7 @@ func TestLeague(t *testing.T){
 		request,_ := http.NewRequest(http.MethodGet,"/league",nil)
 		response := httptest.NewRecorder()
 		server.ServeHTTP(response,request)
-		assertStatus(t,response.Code,http.StatusAccepted)
+		assertStatus(t,response.Code,http.StatusOK)
 	})
 }
 
