@@ -19,11 +19,15 @@ type PlayerServer struct {
 
 func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	router := http.NewServeMux()
-	router.Handle("/league",http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-	}))
+	router.Handle("/league",http.HandlerFunc(p.leagueHandler))
 
-	router.Handle("/players/",http.HandlerFunc(func (w http.ResponseWriter,r *http.Request)  {
+	router.Handle("/players/",http.HandlerFunc(p.playerHandler))
+	router.ServeHTTP(w, r)
+}
+func (p *PlayerServer)leagueHandler(w http.ResponseWriter, r *http.Request){
+	w.WriteHeader(http.StatusOK)
+}
+func(p *PlayerServer)playerHandler(w http.ResponseWriter,r *http.Request){
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
 	switch r.Method {
 	case http.MethodPost:
@@ -31,10 +35,7 @@ func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case http.MethodGet:
 		p.showScore(w, player)
 	}
-	}))
-	router.ServeHTTP(w, r)
-}
-
+	}
 func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {
 	score := p.store.GetPlayerScore(player)
 
