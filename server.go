@@ -13,6 +13,7 @@ type PlayerStore interface {
 }
 
 // PlayerServer is a HTTP interface for player information.
+// Example of Embedding
 type PlayerServer struct {
 	store PlayerStore
 	http.Handler
