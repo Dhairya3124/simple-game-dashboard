@@ -16,7 +16,9 @@ type InMemoryPlayerStore struct {
 	// A mutex is used to synchronize read/write access to the map
 	lock sync.RWMutex
 }
-
+func (i *InMemoryPlayerStore) GetLeague() []Player {
+	return nil
+}
 // RecordWin will record a player's win.
 func (i *InMemoryPlayerStore) RecordWin(name string) {
 	i.lock.Lock()
