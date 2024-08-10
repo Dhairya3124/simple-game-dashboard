@@ -7,10 +7,11 @@ import (
 	"strings"
 )
 
-type Player struct{
+type Player struct {
 	Name string
 	Wins int
 }
+
 // PlayerStore stores score information about players.
 type PlayerStore interface {
 	GetPlayerScore(name string) int
@@ -39,18 +40,20 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 
 	return p
 }
+
 const jsonContentType = "application/json"
-func (p *PlayerServer)leagueHandler(w http.ResponseWriter, r *http.Request){
-	
+
+func (p *PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
+
 	//Adding header as content-type = application/json
-	w.Header().Set("content-type",jsonContentType)
+	w.Header().Set("content-type", jsonContentType)
 
 	// Encoding and Decoding json for best practices
 	json.NewEncoder(w).Encode(p.store.GetLeague())
 
 }
 
-func(p *PlayerServer)playersHandler(w http.ResponseWriter,r *http.Request){
+func (p *PlayerServer) playersHandler(w http.ResponseWriter, r *http.Request) {
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
 	switch r.Method {
 	case http.MethodPost:
@@ -58,7 +61,7 @@ func(p *PlayerServer)playersHandler(w http.ResponseWriter,r *http.Request){
 	case http.MethodGet:
 		p.showScore(w, player)
 	}
-	}
+}
 func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {
 	score := p.store.GetPlayerScore(player)
 
