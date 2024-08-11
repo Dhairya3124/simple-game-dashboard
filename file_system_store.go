@@ -30,6 +30,8 @@ func (f *FileSystemPlayerStore) RecordWin(name string) {
 	player := league.Find(name)
 	if player != nil {
 		player.Wins++
+	} else {
+		league = append(league, Player{name, 1})
 	}
 	f.database.Seek(0, io.SeekStart)
 	json.NewEncoder(f.database).Encode(league)
