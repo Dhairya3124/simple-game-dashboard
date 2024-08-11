@@ -9,7 +9,7 @@ type FileSystemPlayerStore struct {
 	database io.ReadWriteSeeker
 }
 
-func (f *FileSystemPlayerStore) GetLeague() []Player {
+func (f *FileSystemPlayerStore) GetLeague() League {
 	var league []Player
 	// Following function will always start reading from start of the file.
 	f.database.Seek(0, io.SeekStart)
@@ -17,25 +17,20 @@ func (f *FileSystemPlayerStore) GetLeague() []Player {
 	return league
 }
 func (f *FileSystemPlayerStore) GetPlayerScore(name string) int {
-	var score int
-	for _, player := range f.GetLeague() {
-		if player.Name == name {
-			score = player.Wins
-			break
-
-		}
+	league := f.GetLeague()
+	player := league.Find(name)
+	if player != nil {
+		return player.Wins
 	}
 
-	return score
+	return 0
 }
-func (f *FileSystemPlayerStore)RecordWin(name string){
-	league:=f.GetLeague()
-	for i, player := range  league{
-		if player.Name == name {
-			league[i].Wins++
-
-		}
+func (f *FileSystemPlayerStore) RecordWin(name string) {
+	league := f.GetLeague()
+	player := league.Find(name)
+	if player != nil {
+		player.Wins++
 	}
-	f.database.Seek(0,io.SeekStart)
+	f.database.Seek(0, io.SeekStart)
 	json.NewEncoder(f.database).Encode(league)
 }
