@@ -7,9 +7,7 @@ import (
 	"time"
 )
 
-type BlindAlerter interface {
-	ScheduleAlertAt(duration time.Duration, amount int)
-}
+
 type CLI struct {
 	playerStore PlayerStore
 	in          *bufio.Scanner
