@@ -21,4 +21,3 @@ func (p *Game) Start(numberOfPlayers int) {
 func (p *Game) Finish(winner string) {
 	p.store.RecordWin(winner)
 }
-
