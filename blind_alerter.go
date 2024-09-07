@@ -17,7 +17,7 @@ func (a BlindAlerterFunc) ScheduleAlertAt(duration time.Duration, amount int, to
 	a(duration, amount,to)
 }
 
-func StdOutAlerter(duration time.Duration, amount int) {
+func Alerter(duration time.Duration, amount int, to io.Writer) {
 	time.AfterFunc(duration, func() {
 		fmt.Fprintf(os.Stdout, "Blind is now %d\n", amount)
 	})
