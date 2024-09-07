@@ -14,7 +14,7 @@ type BlindAlerter interface {
 type BlindAlerterFunc func(duration time.Duration, amount int, to io.Writer)
 
 func (a BlindAlerterFunc) ScheduleAlertAt(duration time.Duration, amount int, to io.Writer) {
-	a(duration, amount,to)
+	a(duration, amount, to)
 }
 
 func Alerter(duration time.Duration, amount int, to io.Writer) {

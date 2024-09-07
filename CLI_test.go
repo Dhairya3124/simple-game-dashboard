@@ -17,7 +17,7 @@ var dummyStdOut = &bytes.Buffer{}
 type GameSpy struct {
 	StartCalled     bool
 	StartCalledWith int
-	BlindAlert []byte
+	BlindAlert      []byte
 
 	FinishedCalled   bool
 	FinishCalledWith string

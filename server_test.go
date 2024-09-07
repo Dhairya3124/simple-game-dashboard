@@ -149,7 +149,7 @@ func TestGame(t *testing.T) {
 
 		wsURL := "ws" + strings.TrimPrefix(server.URL, "http") + "/ws"
 
-		ws := mustDialWS(t,wsURL)
+		ws := mustDialWS(t, wsURL)
 		defer ws.Close()
 
 		writeWSMessage(t, ws, winner)
@@ -209,16 +209,16 @@ func assertResponseBody(t testing.TB, got, want string) {
 		t.Errorf("response body is wrong, got %q want %q", got, want)
 	}
 }
-func mustDialWS(t *testing.T,url string)*websocket.Conn{
-	ws,_,err:=websocket.DefaultDialer.Dial(url,nil)
-	if err!=nil{
-		t.Fatalf("could not open a ws connection on %s %v",url,err)
+func mustDialWS(t *testing.T, url string) *websocket.Conn {
+	ws, _, err := websocket.DefaultDialer.Dial(url, nil)
+	if err != nil {
+		t.Fatalf("could not open a ws connection on %s %v", url, err)
 	}
 	return ws
 }
-func writeWSMessage(t testing.TB,conn *websocket.Conn,message string ){
+func writeWSMessage(t testing.TB, conn *websocket.Conn, message string) {
 	t.Helper()
-	if err:=conn.WriteMessage(websocket.TextMessage,[]byte(message));err!=nil{
-		t.Fatalf("could not send message over ws connection %v",err)
+	if err := conn.WriteMessage(websocket.TextMessage, []byte(message)); err != nil {
+		t.Fatalf("could not send message over ws connection %v", err)
 	}
 }
