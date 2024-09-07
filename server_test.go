@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gorilla/websocket"
 	poker "github.com/Dhairya3124/simple-game-dashboard.git"
+	"github.com/gorilla/websocket"
 )
 
 var (

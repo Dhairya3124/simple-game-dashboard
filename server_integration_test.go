@@ -8,13 +8,12 @@ import (
 	poker "github.com/Dhairya3124/simple-game-dashboard.git"
 )
 
-
 func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 	database, cleanDatabase := createTempFile(t, `[]`)
 	defer cleanDatabase()
 	store, err := poker.NewFileSystemPlayerStore(database)
 	assertNoError(t, err)
-	server := mustMakePlayerServer(t, store,dummyGame)
+	server := mustMakePlayerServer(t, store, dummyGame)
 	player := "Pepper"
 
 	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
